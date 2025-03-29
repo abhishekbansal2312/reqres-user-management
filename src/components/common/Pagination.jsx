@@ -54,47 +54,64 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="flex items-center justify-center mt-8">
-      <nav className="flex items-center space-x-1">
+      <nav
+        className="inline-flex items-center rounded-md shadow-sm"
+        aria-label="Pagination"
+      >
         <button
           onClick={handlePrevious}
           disabled={currentPage <= 1}
-          className={`flex items-center px-2 py-1 rounded-md ${
+          className={`relative inline-flex items-center px-3 py-2 rounded-l-md border ${
             currentPage <= 1
-              ? "text-gray-400 cursor-not-allowed"
-              : "text-gray-700 hover:bg-gray-100"
+              ? "border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "border-gray-300 bg-white text-gray-500 hover:bg-gray-50 hover:text-indigo-600 transition-colors"
           }`}
+          aria-label="Previous page"
         >
           <FiChevronLeft className="w-5 h-5" />
         </button>
 
-        {getPageNumbers().map((page, index) =>
-          page === "..." ? (
-            <span key={`ellipsis-${index}`} className="px-3 py-1 text-gray-500">
-              ...
-            </span>
-          ) : (
-            <button
-              key={page}
-              onClick={() => onPageChange(page)}
-              className={`px-3 py-1 rounded-md ${
-                currentPage === page
-                  ? "bg-primary-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              {page}
-            </button>
-          )
-        )}
+        <div className="hidden md:inline-flex">
+          {getPageNumbers().map((page, index) =>
+            page === "..." ? (
+              <span
+                key={`ellipsis-${index}`}
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700"
+              >
+                ...
+              </span>
+            ) : (
+              <button
+                key={page}
+                onClick={() => onPageChange(page)}
+                className={`relative inline-flex items-center px-4 py-2 border ${
+                  currentPage === page
+                    ? "z-10 border-indigo-500 bg-indigo-600 text-white font-medium"
+                    : "border-gray-300 bg-white text-gray-500 hover:bg-gray-50 hover:text-indigo-600"
+                } transition-colors`}
+                aria-current={currentPage === page ? "page" : undefined}
+              >
+                {page}
+              </button>
+            )
+          )}
+        </div>
+
+        <div className="md:hidden">
+          <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+            {currentPage} of {totalPages}
+          </span>
+        </div>
 
         <button
           onClick={handleNext}
           disabled={currentPage >= totalPages}
-          className={`flex items-center px-2 py-1 rounded-md ${
+          className={`relative inline-flex items-center px-3 py-2 rounded-r-md border ${
             currentPage >= totalPages
-              ? "text-gray-400 cursor-not-allowed"
-              : "text-gray-700 hover:bg-gray-100"
+              ? "border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "border-gray-300 bg-white text-gray-500 hover:bg-gray-50 hover:text-indigo-600 transition-colors"
           }`}
+          aria-label="Next page"
         >
           <FiChevronRight className="w-5 h-5" />
         </button>
