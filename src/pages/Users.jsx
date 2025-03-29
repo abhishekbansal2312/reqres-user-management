@@ -99,7 +99,7 @@ const Users = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4">
       <div className="flex justify-between items-center mb-6 border-b pb-4">
         <h1 className="text-2xl font-bold text-gray-800 flex items-center">
           <FiUsers className="mr-2 text-blue-600" />
